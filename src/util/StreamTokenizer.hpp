@@ -36,7 +36,7 @@ namespace bil {
         /**
         * \brief Destructs a StreamTokenizer instance.
         */
-        StreamTokenizer::~StreamTokenizer();
+        ~StreamTokenizer();
 
 
         /**********************************************************************/
@@ -189,7 +189,7 @@ namespace bil {
         * \param val Reference to variable to hold value.
         * \return True, if conversion suceeded; false otherwise.
         */
-        bool uintToken(unsigned& val) const;
+        bool uintToken(unsigned & val) const;
 
 
     private:

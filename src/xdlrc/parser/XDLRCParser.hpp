@@ -46,7 +46,7 @@ namespace bil {
         /**
         * \brief Destructs a XDLRCParser instance.
         */
-        XDLRCParser::~XDLRCParser();
+        ~XDLRCParser();
 
 
         /**********************************************************************/

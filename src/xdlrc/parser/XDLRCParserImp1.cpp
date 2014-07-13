@@ -72,7 +72,7 @@ void XDLRCParserImp::parse1stTile()
     m_tile->typeIndex(static_cast<unsigned short>(m_tileType->tag()));
 
     // read primitive site count and reserve site names
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
     m_sites->reserve(count);
@@ -137,7 +137,7 @@ void XDLRCParserImp::parse1stTile()
 void XDLRCParserImp::parse1stPrimitiveSite()
 {
     // create new primitive site
-    size_t count = m_sites->size();
+    unsigned count = m_sites->size();
     m_sites->push_back(PrimitiveSite());
     PrimitiveSite& primitiveSite = ((*m_sites)[count]);
 
@@ -199,7 +199,7 @@ void XDLRCParserImp::parse1stWire()
     addWire(m_tok->wordToken());
 
     // skip connection count
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
 

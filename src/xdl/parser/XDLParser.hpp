@@ -44,7 +44,7 @@ namespace bil {
         /**
         * \brief Destructs a XDLParser instance.
         */
-        XDLParser::~XDLParser();
+        ~XDLParser();
 
 
         /**********************************************************************/

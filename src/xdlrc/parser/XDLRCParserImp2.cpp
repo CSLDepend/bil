@@ -15,7 +15,7 @@ using namespace bil::xdlrcparser_detail;
 void XDLRCParserImp::parse1stPrimitiveDefs()
 {
     // read primitive definition count
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
     // reserve memory for primitive definitions and pin maps
@@ -45,7 +45,7 @@ void XDLRCParserImp::parse1stPrimitiveDef()
     addPrimitiveType(m_tok->wordToken());
 
     // read pin count and reserve pins
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
     m_pins->reserve(count);
@@ -112,7 +112,7 @@ void XDLRCParserImp::parse1stPin()
 void XDLRCParserImp::parse1stElement()
 {
     // add element
-    size_t count = m_elements->size();
+    unsigned count = m_elements->size();
     m_elements->push_back(Element());
     Element& element = (*m_elements)[count];
     ConfigurationOptions& options = element.options();

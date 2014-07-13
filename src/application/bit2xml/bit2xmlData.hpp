@@ -8,6 +8,7 @@
 #ifndef BIT2XMLDATA_HPP
 #define BIT2XMLDATA_HPP
 
+#include <cstdlib>
 
 /// size of XSL stylesheet
 const size_t DISASSEMBLY_XSL_SIZE = 3704;

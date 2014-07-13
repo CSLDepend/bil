@@ -76,7 +76,7 @@ void XDLRCParserImp::parse2ndTile()
     if ((m_tileType->name()).compare(m_tok->wordToken()) != 0) throw Exception();
 
     // skip primitive site count
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
 
@@ -181,7 +181,7 @@ void XDLRCParserImp::parse2ndPrimitiveSite()
     m_pinWires = &(m_siteType->pinWires());
 
     // read pin wire count (lower bound)
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
     m_pinWires->reserve(count);
@@ -246,7 +246,7 @@ void XDLRCParserImp::parse2ndPrimitiveSiteSkip()
     throw Exception();
 
     // skip pin wire count
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
 
@@ -291,7 +291,7 @@ void XDLRCParserImp::parse2ndWire()
     m_connections = &(wire.connections());
 
     // read connection count and reserve it (min value)
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
     m_connections->reserve(count);

@@ -22,7 +22,7 @@ void XDLRCParserImp::parseTileSummary()
 
     // skip pin count
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
-    size_t count;
+    unsigned count;
     if (!m_tok->uintToken(count)) throw Exception();
 
     // skip wire count
@@ -48,7 +48,7 @@ void XDLRCParserImp::parseSummary()
     if (StreamTokenizer::TT_SEPARATOR != m_tok->nextToken()) throw Exception();
     if ('=' != m_tok->separatorToken()) throw Exception();
     // skip tile count
-    size_t count;
+    unsigned count;
     if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
     if (!m_tok->uintToken(count)) throw Exception();
 
