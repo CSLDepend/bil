@@ -26,8 +26,8 @@ XMLWriter::XMLWriter(std::ostream& os, size_t baseIndent, size_t levelIndent):
   m_outputStream(os),
   m_elementStack(),
   m_insideOpeningTag(false),
-  m_lineIndentString(baseIndent, INDENT_CHAR),
-  m_levelIndent(levelIndent)
+  m_levelIndent(levelIndent),
+  m_lineIndentString(baseIndent, INDENT_CHAR)
 {
     // write out first indent without line break
     m_outputStream << m_lineIndentString;

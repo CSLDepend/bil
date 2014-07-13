@@ -20,6 +20,15 @@
 namespace bil {
 
     /**
+    * \brief Writes data from a std::string into a binary stream.
+    * \details Strings longer than 255 chars are truncated to that length.
+    * \param data The string to write.
+    * \param outputStream The stream to write into.
+    * \throws .
+    */
+    void writeBinary(const std::string& data, std::ostream& outputStream);
+
+    /**
     * \brief Writes POD data into a binary stream.
     * \tparam T Type of the data.
     * \param data The data to write.
@@ -94,8 +103,8 @@ namespace bil {
         outputStream.write(reinterpret_cast<const char*>(&length), sizeof(length));
         if (!outputStream) throw IOException();
         // write map data one by one
-        std::map<K, V, C, A>::const_iterator it = data.begin();
-        std::map<K, V, C, A>::const_iterator itEnd = data.end();
+        typename std::map<K, V, C, A>::const_iterator it = data.begin();
+        typename std::map<K, V, C, A>::const_iterator itEnd = data.end();
         for (; it != itEnd; ++it)
         {
             writeBinary(it->first, outputStream);
@@ -103,15 +112,14 @@ namespace bil {
         }
     }
 
+
     /**
-    * \brief Writes data from a std::string into a binary stream.
-    * \details Strings longer than 255 chars are truncated to that length.
-    * \param data The string to write.
-    * \param outputStream The stream to write into.
+    * \brief Reads data into a std::string from a binary stream.
+    * \param data The string to read into.
+    * \param inputStream The stream to read from.
     * \throws .
     */
-    void writeBinary(const std::string& data, std::ostream& outputStream);
-
+    void readBinary(std::string& data, std::istream& inputStream);
 
     /**
     * \brief Reads POD data from a binary stream.
@@ -197,21 +205,12 @@ namespace bil {
             K key;
             readBinary(key, inputStream);
             // add it to map
-            std::pair<std::map<K, V>::iterator, bool> ret =
-                data.insert(std::make_pair(key, V()));
+            auto ret = data.insert(std::make_pair(key, V()));
             V& value = (ret.first)->second;
             // read value
             readBinary(value, inputStream);
         }
     }
-
-    /**
-    * \brief Reads data into a std::string from a binary stream.
-    * \param data The string to read into.
-    * \param inputStream The stream to read from.
-    * \throws .
-    */
-    void readBinary(std::string& data, std::istream& inputStream);
 
 }
 

@@ -9,6 +9,11 @@
 
 #include <boost/cstdint.hpp>
 
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    #define __LITTLE_ENDIAN__
+#elif __BYTE_ORDER == __ORDER_BIG_ENDIAN__
+    #define __BIG_ENDIAN__
+#endif
 
 namespace bil {
 
