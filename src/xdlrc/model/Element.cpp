@@ -10,6 +10,8 @@ using namespace bil;
 
 Element::Element():
   m_name(),
+  m_pins(),
+  m_conns(),
   m_options()
 {
 
@@ -27,6 +29,27 @@ const std::string& Element::name() const
     return m_name;
 }
 
+Pins& Element::pins()
+{
+    return m_pins;
+}
+
+
+const Pins& Element::pins() const
+{
+    return m_pins;
+}
+
+
+ElementConns& Element::conns()
+{
+    return m_conns;
+}
+
+const ElementConns& Element::conns() const
+{
+    return m_conns;
+}
 
 ConfigurationOptions& Element::options()
 {

@@ -128,6 +128,8 @@ void XDLRCParserImp::parse1stElement()
     // parse pins
     for (;;)
     {
+        Pin pin;
+
         // skip parenthesis
         if (StreamTokenizer::TT_SEPARATOR != m_tok->nextToken()) throw Exception();
         if (')' == m_tok->separatorToken()) return;
@@ -137,19 +139,26 @@ void XDLRCParserImp::parse1stElement()
         if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
         if (strcmp(m_tok->wordToken(), XDLRCKeywords::PIN) != 0) break;
 
-        // skip name
+        // get name
         if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
+        const char* name = m_tok->wordToken();
+        pin.externalName() = name;
 
-        // skip input/output keyword
+        // get input/output keyword
         if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
         const char* s = m_tok->wordToken();
-        if ((strcmp(s, XDLRCKeywords::INPUT) != 0) &&
-            (strcmp(s, XDLRCKeywords::OUTPUT) != 0))
+        if (strcmp(s, XDLRCKeywords::INPUT) == 0)
+            pin.isInput(true);
+        else if (strcmp(s, XDLRCKeywords::OUTPUT) == 0)
+            pin.isInput(false);
+        else
             throw Exception();
 
         // skip closing parenthesis
         if (StreamTokenizer::TT_SEPARATOR != m_tok->nextToken()) throw Exception();
         if (')' != m_tok->separatorToken()) throw Exception();
+
+        element.pins().push_back(pin);
     }
 
     // parse configuration options
@@ -187,14 +196,17 @@ void XDLRCParserImp::parse1stElement()
     // parse connections
     for (;;)
     {
+        ElementConn conn;
+
         // parse a connection if keyword matches
         if (strcmp(m_tok->wordToken(), XDLRCKeywords::CONN) != 0) break;
 
         // skip source element name
         if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
 
-        // skip source element pin
+        // get source element pin
         if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
+        conn.pin() = m_tok->wordToken();
 
         // skip connection symbol
         m_tok->wordChar('=');
@@ -209,15 +221,19 @@ void XDLRCParserImp::parse1stElement()
         m_tok->separatorChar('<');
         m_tok->separatorChar('>');
 
-        // skip destination element name
+        // get destination element name
         if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
+        conn.dstElement() = m_tok->wordToken();
 
-        // skip destination element pin
+        // get destination element pin
         if (StreamTokenizer::TT_WORD != m_tok->nextToken()) throw Exception();
+        conn.dstPin() = m_tok->wordToken();
 
         // skip closing parenthesis
         if (StreamTokenizer::TT_SEPARATOR != m_tok->nextToken()) throw Exception();
         if (')' != m_tok->separatorToken()) throw Exception();
+
+        element.conns().push_back(conn);
 
         // skip parenthesis
         if (StreamTokenizer::TT_SEPARATOR != m_tok->nextToken()) throw Exception();
