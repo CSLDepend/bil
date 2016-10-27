@@ -22,5 +22,34 @@ add_executable(bitreverse ${bitreverse_src})
 target_link_libraries(bitreverse bil)
 add_dependencies(bitreverse bil)
 
-install(TARGETS bit2xml bitextract bitreverse
+file(GLOB bitcorrelate_src
+    "datagen/bitcorrelate/*.cpp"
+    )
+add_executable(bitcorrelate ${bitcorrelate_src})
+target_link_libraries(bitcorrelate bil)
+add_dependencies(bitcorrelate bil)
+
+file(GLOB v5cfgmap_gen_src
+    "datagen/v5cfgmap_gen/*.cpp"
+    )
+add_executable(v5cfgmap_gen ${v5cfgmap_gen_src})
+target_link_libraries(v5cfgmap_gen bil)
+add_dependencies(v5cfgmap_gen bil)
+
+file(GLOB v5data_gen_src
+    "datagen/v5data_gen/*.cpp"
+    )
+add_executable(v5data_gen ${v5data_gen_src})
+target_link_libraries(v5data_gen bil)
+add_dependencies(v5data_gen bil)
+
+file(GLOB xdlrc_convert_src
+    "datagen/xdlrc_convert/*.cpp"
+    )
+add_executable(xdlrc_convert ${xdlrc_convert_src})
+target_link_libraries(xdlrc_convert bil)
+add_dependencies(xdlrc_convert bil)
+
+
+install(TARGETS bit2xml bitextract bitreverse v5cfgmap_gen v5data_gen xdlrc_convert
     RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/bin)
